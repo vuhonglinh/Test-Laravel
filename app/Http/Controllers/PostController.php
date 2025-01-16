@@ -19,12 +19,14 @@ class PostController extends Controller
 
     public function data(Request $request)
     {
-        $posts =  Post::with('categories')->orderBy('created_at', 'desc');
-        if (!empty($request->categories)) {
-            $posts->whereHas('categories', function ($q) use ($request) {
-                $q->whereIn('id', $request->categories);
+        $filter = $request->filter;
+        $posts =  Post::query();
+        if (!empty($filter['categories'])) {
+            $posts->whereHas('categories', function ($q) use ($filter) {
+                $q->whereIn('categories.id', $filter['categories']);
             });
         }
+        $posts = $posts->orderBy('created_at', 'desc')->get();
         return DataTables::of($posts)
             ->addIndexColumn()
             ->editColumn('id', function ($post) {

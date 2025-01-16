@@ -18,7 +18,7 @@
                     @foreach ($categories as $category)
                         <div class="form-check form-check-inline">
                             <input id="category-{{ $category->id }}" class="form-check-input" type="checkbox"
-                                name="category" value="{{ $category->id }}">
+                                name="categories[]" value="{{ $category->id }}">
                             <label class="form-check-label" for="category-{{ $category->id }}">{{ $category->name }}</label>
                         </div>
                     @endforeach
@@ -66,7 +66,9 @@
                     url: "{{ route('post.data') }}",
                     data: function(d) {
                         d.filter = {
-                            category: $('input[name="category"]:checked').val()
+                            categories: $('input[name="categories[]"]:checked').map(function() {
+                                return $(this).val();
+                            }).get()
                         };
                     }
                 },
@@ -95,7 +97,7 @@
                 }],
             });
 
-            $('input[name="category"]').on('change', function() {
+            $('input[name="categories[]"]').on('change', function() {
                 window.renderedDataTable.ajax.reload();
             });
         });

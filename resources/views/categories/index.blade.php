@@ -11,20 +11,6 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-12">
-                <span class="fw-bold">Chọn danh mục:</span>
-                <div class="form-group">
-                    @foreach ($categories as $category)
-                        <div class="form-check form-check-inline">
-                            <input id="category-{{ $category->id }}" class="form-check-input" type="checkbox"
-                                name="category" value="{{ $category->id }}">
-                            <label class="form-check-label" for="category-{{ $category->id }}">{{ $category->name }}</label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="card shadow-sm">

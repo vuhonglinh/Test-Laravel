@@ -21,15 +21,17 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
+        $category = request()->category;
         return [
-            'name' => 'required',
+            'name' => $category ? 'required|unique:categories,name,' . $category->id : 'required|unique:categories,name',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Tên danh mục không được để trống!'
+            'name.required' => 'Tên danh mục không được để trống!',
+            'name.unique' => 'Tên danh mục đã tồn tại!'
         ];
     }
 }

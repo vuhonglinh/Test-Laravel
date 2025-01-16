@@ -21,8 +21,9 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
+        $post = request()->post;
         return [
-            'title' => 'required',
+            'title' => $post ? 'required|unique:posts,title,' . $post->id : 'required|unique:posts,title',
             'content' => 'required',
             'categories' => 'array|required',
             'views' => 'required|integer|min:1'
@@ -33,6 +34,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title.required' => 'Tiêu đề không được để trống!',
+            'title.unique' => 'Tiêu đề đã tồn tại!',
             'content.required' => 'Nội dung không được để trống!',
             'categories.required' => 'Danh mục không được để trống!',
             'categories.array' => 'Danh mục không được để trống!',
