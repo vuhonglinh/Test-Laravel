@@ -20,6 +20,15 @@ Route::get('/', function () {
 })->name('home');
 
 
+
+/*
+Chạy
+
+npm install
+npm run build
+
+
+*/
 Route::prefix('post')->name('post.')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('index');
     Route::get('/data', [PostController::class, 'data'])->name('data');
