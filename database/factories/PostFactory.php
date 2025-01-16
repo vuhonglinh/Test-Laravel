@@ -17,7 +17,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->unique()->name,
             'content' => $this->faker->paragraph,
             'views' => $this->faker->numberBetween(0, 1000),
         ];
